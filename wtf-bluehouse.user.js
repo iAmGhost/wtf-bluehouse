@@ -1,21 +1,24 @@
 // ==UserScript==
 // @name     WTF-Bluehouse
-// @version  1
+// @version  3
 // @grant    none
 // @include  https://www1.president.go.kr/petitions/*
 // ==/UserScript==
 
-
 var REQUIRED_VOTES = 200000;
 
-var votesText = document.querySelector(".cspv_participant span").innerHTML;
-var votes = Number(votesText.replace(/,/g, ''));
+var votesTextElement = document.querySelector(".cspv_participant span");
 
-var daysLeftElement = document.querySelector(".cspvp_day");
+if (votesTextElement) {
+  var votesText = votesTextElement.innerHTML;
+  var votes = Number(votesText.replace(/,/g, ''));
 
-var daysLeftText = daysLeftElement.innerHTML;
+  var daysLeftElement = document.querySelector(".cspvp_day");
 
-document.querySelector(".cspv_participant").innerHTML = '청원 참여(' + daysLeftText + ')';
-daysLeftElement.innerHTML = votesText + '/' + Number(REQUIRED_VOTES).toLocaleString() + '명 참여';
+  var daysLeftText = daysLeftElement.innerHTML;
 
-document.querySelector(".cspvp_ing").style.width = String(votes / REQUIRED_VOTES * 100) + "%";
+  document.querySelector(".cspv_participant").innerHTML = '청원 참여(' + daysLeftText + ')';
+  daysLeftElement.innerHTML = votesText + '/' + Number(REQUIRED_VOTES).toLocaleString() + '명 참여';
+
+  document.querySelector(".cspvp_ing").style.width = String(votes / REQUIRED_VOTES * 100) + "%";
+}
